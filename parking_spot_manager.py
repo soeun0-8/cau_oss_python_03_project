@@ -7,13 +7,12 @@
 주차 공간에 대한 문자열 리스트를
 클래스 parking_spot 객체 리스트로 변환 및 반환,
 print_spots 함수를 통해 주차 공간 정보 출력,
-filter_by_name/city/district/
-ptype/longitude/latitude
-함수를 통해 입력한 키워드에 따라 추려낸
-데이터를 반환하는 기능을 수행합니다.
+filter_by_name/city/district/ptype/longitude/latitude
+함수를 통해 입력한 키워드에 따라 추려낸 데이터 반환,
+sort_by_keyword 함수를 통해 정렬기준에 따라
+정렬한 데이터를 반환하는 기능을 수행합니다.
 
-Version #3: 함수 filter_by_name, filter_by_city,
-filter_by_district, filter_by_ptype, filter_by_location 추가
+Version #4: 함수 sort_by_keyword 추가
 """
 
 class parking_spot:
@@ -193,6 +192,22 @@ def filter_by_location(spots, locations):
                     and locations[2] < spot.get('longitude') and spot.get('longitude') < locations[3]]
 
     return filter_spots
+
+# version #4: sort_by_keyword 함수 추가
+def sort_by_keyword(spots, keyword):
+    """입력한 인수를 기준으로 정렬한 객체 리스트 반환
+
+    Args:
+        spots (list): 주차 공간 정보가 담긴 객체 리스트
+        keyword (str): 정렬 기준이 되는 키워드
+
+    Returns:
+        list: 기준에 따라 정렬된 객체 리스트
+    """
+
+    sorted_spots = sorted(spots, key = lambda x : x.get(keyword))
+
+    return sorted_spots
 
 # 각 단계별로 테스트 (테스트할때 주석해제 후 사용)
 if __name__ == '__main__':

@@ -7,7 +7,7 @@
 입력받은 키워드에 따라 데이터를 추려내고
 정렬할 수 있도록 하는 기능을 수행합니다.
 
-Version #3: 메뉴 [2] filter 구현
+Version #4: 메뉴 [3] sort 구현
 """
 
 import file_manager
@@ -90,9 +90,11 @@ def start_process(path):
             print("---sort by---")
             print(keywords)
             keyword = input('type keyword:')
+
+            # 입력한 keyword가 주차 정보 유형 6가지에 포함되어야만 정렬하는 함수 호출하도록 if문 작성
             if keyword in keywords:
-                print("not implemented yet")
-                # fill this block
+                spots = parking_spot_manager.sort_by_keyword(spots, keyword)
+
             else: print("invalid input")
         elif select == 4:
             print("Exit")
