@@ -6,11 +6,14 @@
 저장하고 반환하며, str_list_to_class_list 함수를 통해
 주차 공간에 대한 문자열 리스트를
 클래스 parking_spot 객체 리스트로 변환 및 반환,
-print_spots 함수를 통해 주차 공간 정보를
-출력하는 기능을 수행합니다.
+print_spots 함수를 통해 주차 공간 정보 출력,
+filter_by_name/city/district/
+ptype/longitude/latitude
+함수를 통해 입력한 키워드에 따라 추려낸
+데이터를 반환하는 기능을 수행합니다.
 
-Version #2: 클래스 parking_spot과
-함수 str_list_to_class_list, print_spots 구현
+Version #3: 함수 filter_by_name, filter_by_city,
+filter_by_district, filter_by_ptype, filter_by_location 추가
 """
 
 class parking_spot:
@@ -104,6 +107,92 @@ def print_spots(spots):
 
     for spot in spots:
         print(spot.__str__())
+
+
+# version #3: filter_by_name, filter_by_city, filter_by_district, filter_by_ptype, filter_by_location 추가
+# 리스트 함축에서의 if 사용 (https://jinmay.github.io/2020/05/28/python/python-list-comprehension-with-if-statement/)
+# 특정 문자열 포함 여부: in, not in 키워드 사용(https://www.naragara.com/%ED%8C%8C%EC%9D%B4%EC%8D%AC-python%EC%97%90%EC%84%9C-%ED%8A%B9%EC%A0%95-%EB%AC%B8%EC%9E%90%EC%97%B4-%ED%8F%AC%ED%95%A8%EC%97%AC%EB%B6%80-%ED%99%95%EC%9D%B8%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/)
+def filter_by_name(spots, name):
+    """입력한 인수가 포함된 자원명을 가진 객체만 추려낸 객체 리스트 반환
+
+    Args:
+        spots (list): 주차 공간 정보가 담긴 객체 리스트
+        name (str): 필터 기준이 되는 자원명 키워드
+
+    Returns:
+        list: 키워드가 포함된 자원명 가진 객체로 추려진 리스트
+    """
+
+    filter_spots = [spot for spot in spots
+                    if name in spot.get('name')]
+    # if name in spot.__item['name']] -> 필드에 바로 접근할 수 없으므로 get 메소드 이용해야 함
+
+    return filter_spots
+
+def filter_by_city(spots, city):
+    """입력한 인수가 포함된 시도를 가진 객체만 추려낸 객체 리스트 반환
+
+    Args:
+        spots (list): 주차 공간 정보가 담긴 객체 리스트
+        city (str): 필터 기준이 되는 시도 키워드
+
+    Returns:
+        list: 키워드가 포함된 시도 가진 객체로 추려진 리스트
+    """
+
+    filter_spots = [spot for spot in spots
+                    if city in spot.get('city')]
+
+    return filter_spots
+
+def filter_by_district(spots, district):
+    """입력한 인수가 포함된 시군구를 가진 객체만 추려낸 객체 리스트 반환
+
+    Args:
+        spots (list): 주차 공간 정보가 담긴 객체 리스트
+        district (str): 필터 기준이 되는 시군구 키워드
+
+    Returns:
+        list: 키워드가 포함된 시군구 가진 객체로 추려진 리스트
+    """
+
+    filter_spots = [spot for spot in spots
+                     if district in spot.get('district')]
+
+    return filter_spots
+
+def filter_by_ptype(spots, ptype):
+    """입력한 인수가 포함된 주차장 유형을 가진 객체만 추려낸 객체 리스트 반환
+
+    Args:
+        spots (list): 주차 공간 정보가 담긴 객체 리스트
+        ptype (str): 필터 기준이 되는 주차장 유형 키워드
+
+    Returns:
+        list: 키워드가 포함된 주차장 유형 가진 객체로 추려진 리스트
+    """
+
+    filter_spots = [spot for spot in spots
+                    if ptype in spot.get('ptype')]
+
+    return filter_spots
+
+def filter_by_location(spots, locations):
+    """입력한 인수가 포함된 위치 정보를 가진 객체만 추려낸 객체 리스트 반환
+
+    Args:
+        spots (list): 주차 공간 정보가 담긴 객체 리스트
+        locaions (tuple): 필터 기준이 되는 최소위도, 최대위도, 최소경도, 최대경도를 담은 튜플
+
+    Returns:
+        list: 입력한 위치에 해당하는 위치 정보를 가진 객체로 추려진 리스트
+    """
+
+    filter_spots = [spot for spot in spots
+                    if locations[0] < spot.get('latitude') and spot.get('latitude') < locations[1]
+                    and locations[2] < spot.get('longitude') and spot.get('longitude') < locations[3]]
+
+    return filter_spots
 
 # 각 단계별로 테스트 (테스트할때 주석해제 후 사용)
 if __name__ == '__main__':

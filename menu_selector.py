@@ -7,7 +7,7 @@
 입력받은 키워드에 따라 데이터를 추려내고
 정렬할 수 있도록 하는 기능을 수행합니다.
 
-Version #2: 메뉴 [1] print, [4] exit 구현
+Version #3: 메뉴 [2] filter 구현
 """
 
 import file_manager
@@ -60,27 +60,29 @@ def start_process(path):
             select = int(input('type:'))
             if select == 1:
                 keyword = input('type name:')
-                print("not implemented yet")
-                # fill this block
+                spots = parking_spot_manager.filter_by_name(spots, keyword)
+
             elif select == 2:
                 keyword = input('type city:')
-                print("not implemented yet")
-                # fill this block
+                spots = parking_spot_manager.filter_by_city(spots, keyword)
+
             elif select == 3:
                 keyword = input('type district:')
-                print("not implemented yet")
-                # fill this block
+                spots = parking_spot_manager.filter_by_district(spots, keyword)
+
             elif select == 4:
                 keyword = input('type ptype:')
-                print("not implemented yet")
-                # fill this block
+                spots = parking_spot_manager.filter_by_ptype(spots, keyword)
+
             elif select == 5:
                 min_lat = float(input('type min lat:'))
                 max_lat = float(input('type max lat:'))
                 min_lon = float(input('type min long:'))
                 max_lon = float(input('type max long:'))
-                print("not implemented yet")
-                # fill this block
+
+                locations = (min_lat, max_lat, min_lon, max_lon)
+                spots = parking_spot_manager.filter_by_location(spots, locations)
+
             else:
                 print("invalid input")
         elif select == 3:
